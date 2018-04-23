@@ -1,6 +1,7 @@
 package com.hll.concert.city;
 
 
+import com.github.pagehelper.PageHelper;
 import com.hll.concert.common.BaseResp;
 import com.hll.concert.common.RowsResp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class CityService {
 
     public BaseResp findAll() {
         RowsResp<QueryCityResp> rowsResp = new RowsResp<QueryCityResp>();
-
+        PageHelper.startPage(0, 3);
         List<City> list = this.cityMapper.findAll();
         for (City city : list) {
             QueryCityResp irep = new QueryCityResp();

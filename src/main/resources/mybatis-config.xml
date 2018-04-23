@@ -23,6 +23,8 @@
     <!--<typeAliases>
         <package name="sample.mybatis.domain"/>
     </typeAliases>-->
+
+
     <mappers>
         <mapper resource="mapper/CityMapper.xml"/>
         <mapper resource="mapper/HotelMapper.xml"/>

@@ -29,4 +29,10 @@ public class CityServiceTest {
         BaseResp resp = this.cityService.insert(insertCityReq);
         System.out.println(JSONObject.toJSONString(resp, SerializerFeature.WRITE_MAP_NULL_FEATURES));
     }
+
+
+    @Test
+    public void testFindAll() {
+        System.out.println(JSONObject.toJSONString(this.cityService.findAll()));
+    }
 }
