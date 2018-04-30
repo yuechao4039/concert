@@ -2,8 +2,6 @@ package com.hll.concert.sm.role;
 
 
 import com.hll.concert.common.BaseResp;
-import com.hll.concert.user.User;
-import com.hll.concert.user.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
