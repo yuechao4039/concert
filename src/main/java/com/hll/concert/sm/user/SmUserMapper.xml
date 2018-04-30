@@ -3,23 +3,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${namespace}Dao">
+<mapper namespace="com.hll.concert.sm.user.SmUserDao">
 
-    <insert id="add${className}" keyProperty="id" useGeneratedKeys="true" >
-        ${insert}
+    <insert id="addSmUser" keyProperty="id" useGeneratedKeys="true" >
+        insert into sm_user (organ_id, organ_code, organ_name, code, name, password, salt, phone, mail, level, verify_code, error_time) values (#{id}, #{organId}, #{organCode}, #{organName}, #{code}, #{name}, #{password}, #{salt}, #{phone}, #{mail}, #{level}, #{verifyCode}, #{errorTime})
     </insert>
 
 
-    <update id="update${className}">
-        ${update}
+    <update id="updateSmUser">
+        update sm_user set organ_id = #{organId}, organ_code = #{organCode}, organ_name = #{organName}, code = #{code}, name = #{name}, password = #{password}, salt = #{salt}, phone = #{phone}, mail = #{mail}, level = #{level}, verify_code = #{verifyCode}, error_time = #{errorTime} where id = #{id}
     </update>
 
 
-    <delete id="delete${className}ById">
-        ${delete})
+    <delete id="deleteSmUserById">
+        delete from sm_user where id = #{id})
     </delete>
 
-    <resultMap id="${entityName}Map" type="com.hll.concert.sm.role.${className}Entity">
+    <resultMap id="smUserMap" type="com.hll.concert.sm.role.SmUserEntity">
         <id column="id" property="id"></id>
         <result column="code" property="code"></result>
         <result column="name" property="name"></result>
@@ -27,11 +27,11 @@
         <result column="type" property="type"></result>
     </resultMap>
 
-    <select id="find${className}ById" resultMap="${entityName}Map">
+    <select id="findSmUserById" resultMap="smUserMap">
         select id, code, name, role_level, type from sm_role where id = #{id}
     </select>
 
-    <select id="findAll" resultMap="${entityName}Map">
+    <select id="findAll" resultMap="smUserMap">
         select id, code, name, role_level, type from sm_role
         <where>
             <if test="null neq id and '' != id">

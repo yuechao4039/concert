@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class EntityVelocity {
+public class FindByIdRequestVelocity {
     public void createEntityTemplate(String tableName, File enFile) {
 
         VelocityEngine ve = new VelocityEngine();
@@ -24,7 +24,7 @@ public class EntityVelocity {
 
         ve.init();
 
-        Template t = ve.getTemplate("Entity.vm");
+        Template t = ve.getTemplate("FindByIdRequest.vm");
         VelocityContext ctx = new VelocityContext();
         /**
          * 包名
@@ -37,7 +37,7 @@ public class EntityVelocity {
         /**
          * 属性
          */
-        ctx.put(ColEntity.ColumnsKey, new ColEntity().getColsByTableName(tableName));
+        ctx.put(ColEntity.ColumnsKey, new ColEntity().getKeysByTableName(tableName));
 
         StringWriter sw = new StringWriter();
 
@@ -48,6 +48,10 @@ public class EntityVelocity {
         }
 //        t.merge(ctx, sw);
 //        System.out.println(sw.toString());
+    }
+
+    public static void main(String[] args) {
+        new FindByIdRequestVelocity().createEntityTemplate("sm_user", null);
     }
 
 

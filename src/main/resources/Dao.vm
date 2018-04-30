@@ -1,6 +1,4 @@
-#foreach ($i in $packageQualifiedName)
-    $i##
-#end
+$packageName
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -14,13 +12,14 @@ import java.util.List;
 @Mapper
 public interface ${className}Dao {
 
-int add${className}(${className}Entity entity);
-int update${className}(${className}Entity entity);
+    int add${className}(${className}Entity entity);
 
-int delete${className}ById(${className}Entity entity);
+    int update${className}(${className}Entity entity);
 
-SmRoleEntity find${className}ById(SmRoleEntity entity);
+    int delete${className}ById(${className}Entity entity);
 
-List<SmRoleEntity> findAll(${className}Entity entity);
+    ${className}Entity find${className}ById(${className}Entity entity);
+
+    List<${className}Entity> findAll(${className}Entity entity);
 
 }

@@ -1,6 +1,7 @@
 $packageName
 
 import com.hll.concert.common.Comment;
+import com.hll.concert.common.PageReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ${className}Entity {
+public class ${className}QueryRequest extends PageReq {
 
 #foreach ($i in $columns)
     @Comment("$i.columnComment")

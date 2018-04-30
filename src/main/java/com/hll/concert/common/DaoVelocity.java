@@ -1,4 +1,4 @@
-package com.hll.concert.common.com.hll.concert.common.dao;
+package com.hll.concert.common;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -7,13 +7,14 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
-import java.io.StringWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class DaoVelocity {
-    public static String PACKAGE = "package ";
-    public static void main(String[] args){
+    public static void createEntityTemplate(String tableName, File file) {
 
-        String tableName = "sm_role";
+
         VelocityEngine ve = new VelocityEngine();
         ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         ve.setProperty(Velocity.ENCODING_DEFAULT, "utf-8");
@@ -25,14 +26,19 @@ public class DaoVelocity {
 
         Template t = ve.getTemplate("Dao.vm");
 
-        String packageName = DaoVelocity.PACKAGE + DaoVelocity.class.getPackage().getName();
-        System.out.println(packageName);
+        String packageName = new PackageEntity().getQualifiedName(tableName);
+
         VelocityContext ctx = new VelocityContext();
         ctx.put("packageName", packageName);
         ctx.put("className", getTableName(tableName));
-        StringWriter sw = new StringWriter();
-        t.merge(ctx, sw);
-        System.out.println(sw);
+//        StringWriter sw = new StringWriter();
+//        t.merge(ctx, sw);
+//        System.out.println(sw);
+        try (FileWriter fw = new FileWriter(file); ) {
+            t.merge(ctx, fw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }

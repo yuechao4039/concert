@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class EntityVelocity {
+public class MapperVelocity {
     public void createEntityTemplate(String tableName, File enFile) {
 
         VelocityEngine ve = new VelocityEngine();
@@ -24,32 +24,34 @@ public class EntityVelocity {
 
         ve.init();
 
-        Template t = ve.getTemplate("Entity.vm");
+        Template t = ve.getTemplate("mapper.vm");
         VelocityContext ctx = new VelocityContext();
-        /**
-         * 包名
-         */
-        ctx.put(PackageEntity.PackageQualifiedNameKey, new PackageEntity().getQualifiedName(tableName));
-        /**
-         * 类名
-         */
-        ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
-        /**
-         * 属性
-         */
-        ctx.put(ColEntity.ColumnsKey, new ColEntity().getColsByTableName(tableName));
 
-        StringWriter sw = new StringWriter();
+        ctx.put(PackageEntity.PackageQualifiedNameKey, new PackageEntity().generatePackageQualifiedName(tableName));
+
+        ctx.put(NamespaceEntity.NAMESPACE, new NamespaceEntity().namespace(tableName));
+
+        ctx.put("entityName", new ClassNameEntity().getClassNameByTableName(tableName).substring(0, 1).toLowerCase() + new ClassNameEntity().getClassNameByTableName(tableName).substring(1));
+
+        ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
+
+        ctx.put("insert", MapperUtil.insert(tableName));
+        ctx.put("update", MapperUtil.update(tableName));
+        ctx.put("delete", MapperUtil.delete(tableName));
 
         try (FileWriter fw = new FileWriter(enFile) ) {
             t.merge(ctx, fw);
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        StringWriter sw = new StringWriter();
 //        t.merge(ctx, sw);
 //        System.out.println(sw.toString());
     }
 
+    public static void main(String[] args) {
+        new MapperVelocity().createEntityTemplate("sm_user", null);
+    }
 
 
 }

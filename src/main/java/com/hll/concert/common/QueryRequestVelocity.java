@@ -1,8 +1,5 @@
-package com.hll.concert.common.mapper;
+package com.hll.concert.common;
 
-import com.hll.concert.common.ClassNameEntity;
-import com.hll.concert.common.ColEntity;
-import com.hll.concert.common.PackageEntity;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -10,12 +7,13 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.StringWriter;
 
-public class MapperVelocity {
-    public static void main(String[] args) {
-
-        String tableName = "sm_role";
+public class QueryRequestVelocity {
+    public void createEntityTemplate(String tableName, File enFile) {
 
         VelocityEngine ve = new VelocityEngine();
         ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
@@ -26,19 +24,29 @@ public class MapperVelocity {
 
         ve.init();
 
-        Template t = ve.getTemplate("mapper.vm");
+        Template t = ve.getTemplate("QueryRequest.vm");
         VelocityContext ctx = new VelocityContext();
-
-        ctx.put(PackageEntity.PackageQualifiedNameKey, new PackageEntity().generatePackageQualifiedName(tableName));
-
-        ctx.put(ClassNameEntity.ClassNameQualifiedNameKey, new ClassNameEntity().getClassNameByTableName(tableName));
-
+        /**
+         * 包名
+         */
+        ctx.put(PackageEntity.PackageQualifiedNameKey, new PackageEntity().getQualifiedName(tableName));
+        /**
+         * 类名
+         */
+        ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
+        /**
+         * 属性
+         */
         ctx.put(ColEntity.ColumnsKey, new ColEntity().getColsByTableName(tableName));
 
         StringWriter sw = new StringWriter();
 
+        try (FileWriter fw = new FileWriter(enFile) ) {
+            t.merge(ctx, fw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         t.merge(ctx, sw);
-
         System.out.println(sw.toString());
     }
 

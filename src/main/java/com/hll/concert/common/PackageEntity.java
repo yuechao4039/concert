@@ -6,12 +6,20 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class PackageEntity {
-    public static String PackageQualifiedNameKey = "packageQualifiedName";
-    static String[] packageNames = new String[]{"package com.hll.concert."};
+    public static String PackageQualifiedNameKey = "packageName";
+    static String[] packageNames = new String[]{"package ", Entity.basePackage};
 
+
+    public String getQualifiedName(String tableName) {
+        StringBuilder sb = new StringBuilder();
+        generatePackageQualifiedName(tableName).forEach(x -> {
+            sb.append(x);
+        });
+        return sb.toString();
+    }
 
     public List<String> generatePackageQualifiedName(String tableName) {
-        StringTokenizer st = new StringTokenizer(tableName, "_");
+        StringTokenizer st = new StringTokenizer(tableName, Entity.underscore);
 
         List<String> list = new ArrayList<>(Arrays.asList(packageNames));
         int length = st.countTokens();

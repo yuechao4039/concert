@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class EntityVelocity {
+public class DeleteRequestVelocity {
     public void createEntityTemplate(String tableName, File enFile) {
 
         VelocityEngine ve = new VelocityEngine();
@@ -24,7 +24,7 @@ public class EntityVelocity {
 
         ve.init();
 
-        Template t = ve.getTemplate("Entity.vm");
+        Template t = ve.getTemplate("DeleteRequest.vm");
         VelocityContext ctx = new VelocityContext();
         /**
          * 包名
@@ -37,17 +37,22 @@ public class EntityVelocity {
         /**
          * 属性
          */
-        ctx.put(ColEntity.ColumnsKey, new ColEntity().getColsByTableName(tableName));
+        ctx.put(ColEntity.ColumnsKey, new ColEntity().getKeysByTableName(tableName));
 
-        StringWriter sw = new StringWriter();
+
 
         try (FileWriter fw = new FileWriter(enFile) ) {
             t.merge(ctx, fw);
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        StringWriter sw = new StringWriter();
 //        t.merge(ctx, sw);
 //        System.out.println(sw.toString());
+    }
+
+    public static void main(String[] args) {
+        new DeleteRequestVelocity().createEntityTemplate("sm_user", null);
     }
 
 
