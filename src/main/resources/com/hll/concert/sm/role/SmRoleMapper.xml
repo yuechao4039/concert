@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hll.concert.sm.role.SmRoleDao">
+    <!-- <select id="selectCityById" resultType="com.hll.concert.city.City">
+         select * from city where id = #{id}
+     </select>-->
+
+
+    <insert id="addSmRole" keyProperty="id" useGeneratedKeys="true" >
+        insert into sm_role (code, name, role_level, type)
+        values (#{code}, #{name}, #{roleLevel}, #{type})
+    </insert>
+
+
+    <update id="updateSmRole">
+      update sm_role set code = #{code}, name = #{name}, role_level = #{roleLevel}
+      where id = #{id}
+    </update>
+
+
+    <delete id="deleteSmRoleById">
+        delete from sm_role where id = #{id}
+    </delete>
+
+    <resultMap id="smRoleMap" type="com.hll.concert.sm.role.SmRoleEntity">
+        <id column="id" property="id"></id>
+        <result column="code" property="code"></result>
+        <result column="name" property="name"></result>
+        <result column="role_level" property="roleLevel"></result>
+        <result column="type" property="type"></result>
+    </resultMap>
+
+    <select id="findSmRoleById" resultMap="smRoleMap">
+        select id, code, name, role_level, type from sm_role where id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="smRoleMap">
+        select id, code, name, role_level, type from sm_role
+        <where>
+            <if test="null neq id and '' != id">
+                and id = #{id}
+            </if>
+
+            <if test="null neq code and '' != code">
+                and code = #{code}
+            </if>
+
+            <if test="null neq name and '' != name">
+                and name = #{name}
+            </if>
+
+            <if test="null neq type and '' != type">
+                and type = #{type}
+            </if>
+
+        </where>
+    </select>
+
+
+</mapper>

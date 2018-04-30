@@ -1,0 +1,26 @@
+#foreach ($i in $packageQualifiedName)
+    $i##
+#end
+
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+/**
+* @author yuechao 2018/4/29
+*/
+@Component
+@Mapper
+public interface ${className}Dao {
+
+int add${className}(${className}Entity entity);
+int update${className}(${className}Entity entity);
+
+int delete${className}ById(${className}Entity entity);
+
+SmRoleEntity find${className}ById(SmRoleEntity entity);
+
+List<SmRoleEntity> findAll(${className}Entity entity);
+
+}
