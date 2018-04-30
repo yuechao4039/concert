@@ -1,6 +1,5 @@
 package com.hll.concert.common;
 
-import com.hll.concert.common.com.hll.concert.DomainUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -16,7 +15,7 @@ import java.io.StringWriter;
 public class ServiceVelocity {
 
 
-    public static void createEntityTemplate(String tableName, File file) {
+    public void createEntityTemplate(String tableName, File file) {
 
         VelocityEngine ve = new VelocityEngine();
         ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
@@ -39,7 +38,7 @@ public class ServiceVelocity {
         /**
          * 类名
          */
-        ctx.put(ClassNameEntity.ClassNameQualifiedNameKey, new ClassNameEntity().getClassNameByTableName(tableName));
+        ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
 
         ctx.put("entityName", new ClassNameEntity().getClassNameByTableName(tableName).substring(0, 1).toLowerCase() + new ClassNameEntity().getClassNameByTableName(tableName).substring(1));
 

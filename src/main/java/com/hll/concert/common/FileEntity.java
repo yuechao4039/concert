@@ -39,7 +39,7 @@ public class FileEntity {
     static List<String> vms = new ArrayList<>(Arrays.asList("Entity.java", "Dao.java",
             "AddRequest.java", "DeleteRequest.java",
             "FindByIdRequest.java", "OnlyResp.java", "QueryRequest.java",
-            "UpdateRequest.java", "Vo.java", "QueryResp.java", "Service.java"));
+            "UpdateRequest.java", "Vo.java", "QueryResp.java", "Service.java", "Mapper.xml"));
     public List<FileType> createJavaFile(String tableName) {
         File file = mkdir(tableName);
         StringBuilder sb = new StringBuilder();

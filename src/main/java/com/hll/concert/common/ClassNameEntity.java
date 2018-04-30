@@ -4,7 +4,7 @@ package com.hll.concert.common;
  * @author yuechao 2018/4/29
  */
 public class ClassNameEntity {
-    public static String ClassNameQualifiedNameKey = "className";
+    public final static String CLASS_NAME  = "className";
 
 
     public String getClassNameByTableName(String tableName) {

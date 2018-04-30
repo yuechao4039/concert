@@ -21,13 +21,16 @@ import java.util.stream.Collectors;
 public class ColEntity {
     public static String ColumnsKey = "columns";
 
-
+    private String underscoreColumnName;
     private String columnName;
     private List<String> annotations;
     private Integer ordinalPosition;
     private String dataType;
     private String columnComment;
     private String tableName;
+    /**
+     * 用于判断是否是主键
+     */
     private String columnKey;
 
     public static void main(String[] args) {
@@ -52,6 +55,7 @@ public class ColEntity {
                 String tableNameDb = rs.getString("TABLE_NAME");
                 String columnKey = rs.getString("COLUMN_KEY");
                 ColEntity en = new ColEntityBuilder()
+                        .underscoreColumnName(columnName)
                         .columnName(mapUnderscoreToCamelCase(columnName))
                         .ordinalPosition(ordinalPosition)
                         .dataType(javaType(dataType))

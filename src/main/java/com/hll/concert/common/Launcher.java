@@ -66,13 +66,10 @@ public class Launcher {
                     new ServiceVelocity().createEntityTemplate(tableName, y.getFile());
                 }
 
-
+                if (y.getFileType().contains("Mapper.xml")) {
+                    new MapperVelocity().createEntityTemplate(tableName, y.getFile());
+                }
             });
-
-
-
-
-
         });
     }
 }

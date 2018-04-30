@@ -1,12 +1,10 @@
-package com.hll.concert.common.mapper;
-
-import com.hll.concert.common.Entity;
+package com.hll.concert.common;
 
 /**
  * @author yuechao 2018/4/30
  */
 public class NamespaceEntity {
-
+    public static String NAMESPACE = "namespace";
 
     public String namespace(String tableName) {
         String[] arr = tableName.split(Entity.underscore);
@@ -23,6 +21,8 @@ public class NamespaceEntity {
                 daoName.append(arr[i].substring(0, 1).toUpperCase()).append(arr[i].substring(1));
             }
         }
+
+        sb.append(".").append(new ClassNameEntity().getClassNameByTableName(tableName));
 
 
         return sb.toString();

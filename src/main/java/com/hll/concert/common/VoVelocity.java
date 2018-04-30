@@ -33,7 +33,7 @@ public class VoVelocity {
         /**
          * 类名
          */
-        ctx.put(ClassNameEntity.ClassNameQualifiedNameKey, new ClassNameEntity().getClassNameByTableName(tableName));
+        ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
         /**
          * 属性
          */
