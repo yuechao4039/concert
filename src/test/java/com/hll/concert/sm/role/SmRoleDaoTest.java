@@ -1,7 +1,5 @@
 package com.hll.concert.sm.role;
 
-import com.hll.concert.user.User;
-import com.hll.concert.user.UserMapper;
 
 import org.junit.Assert;
 import org.junit.Test;
