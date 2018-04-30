@@ -1,5 +1,6 @@
 package com.hll.concert.common;
 
+import com.hll.concert.common.com.hll.concert.DomainUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -12,19 +13,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class EntityVelocity {
-    public void createEntityTemplate(String tableName, File enFile) {
+public class ServiceVelocity {
+
+
+    public static void createEntityTemplate(String tableName, File file) {
 
         VelocityEngine ve = new VelocityEngine();
         ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-        ve.setProperty(Velocity.ENCODING_DEFAULT, "UTF-8");
-        ve.setProperty(Velocity.INPUT_ENCODING, "UTF-8");
-        ve.setProperty(Velocity.OUTPUT_ENCODING, "UTF-8");
+        ve.setProperty(Velocity.ENCODING_DEFAULT, "utf-8");
+        ve.setProperty(Velocity.INPUT_ENCODING, "utf-8");
+        ve.setProperty(Velocity.OUTPUT_ENCODING, "utf-8");
         ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
 
         ve.init();
 
-        Template t = ve.getTemplate("Entity.vm");
+        Template t = ve.getTemplate("Service.vm");
+
+        String packageName = new PackageEntity().getQualifiedName(tableName);
+
         VelocityContext ctx = new VelocityContext();
         /**
          * 包名
@@ -34,23 +40,25 @@ public class EntityVelocity {
          * 类名
          */
         ctx.put(ClassNameEntity.ClassNameQualifiedNameKey, new ClassNameEntity().getClassNameByTableName(tableName));
-        /**
-         * 属性
-         */
-        ctx.put(ColEntity.ColumnsKey, new ColEntity().getColsByTableName(tableName));
 
-        StringWriter sw = new StringWriter();
+        ctx.put("entityName", new ClassNameEntity().getClassNameByTableName(tableName).substring(0, 1).toLowerCase() + new ClassNameEntity().getClassNameByTableName(tableName).substring(1));
 
-        try (FileWriter fw = new FileWriter(enFile) ) {
+        if (null != file)
+        try (FileWriter fw = new FileWriter(file)) {
             t.merge(ctx, fw);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+//        StringWriter sw = new StringWriter();
 //        t.merge(ctx, sw);
-//        System.out.println(sw.toString());
+//        System.out.println(sw);
+
+    }
+
+    public static void main(String[] args) {
+        new ServiceVelocity().createEntityTemplate("sm_user", null);
     }
 
 
-
 }
-

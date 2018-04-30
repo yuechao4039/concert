@@ -1,4 +1,4 @@
-${packageName};
+package com.hll.concert.sm.user;;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -18,36 +18,36 @@ import java.util.stream.Collectors;
 */
 @Service
 @Transactional
-public class ${className}Service {
+public class SmUserService {
 
     @Autowired
-    private ${className}Dao ${entityName}Dao;
+    private SmUserDao smUserDao;
 
 
-    public BaseResp add${className}(${className}AddRequest request) {
-        ${className}Entity entity = new ${className}Entity();
+    public BaseResp addSmUser(SmUserAddRequest request) {
+        SmUserEntity entity = new SmUserEntity();
         BeanUtils.copyProperties(request, entity);
-        int result = this.${entityName}Dao.add${className}(entity);
+        int result = this.smUserDao.addSmUser(entity);
         if (result < 0) {
         throw new MyException("新增失败");
         }
         return new BaseResp();
     }
 
-    public BaseResp update${className}(${className}UpdateRequest request) {
-        ${className}Entity entity = new ${className}Entity();
+    public BaseResp updateSmUser(SmUserUpdateRequest request) {
+        SmUserEntity entity = new SmUserEntity();
         BeanUtils.copyProperties(request, entity);
-        int result = this.${entityName}Dao.update${className}(entity);
+        int result = this.smUserDao.updateSmUser(entity);
         if (result < 0) {
         throw new MyException("更新失败");
         }
         return new BaseResp();
     }
 
-    public BaseResp delete${className}ById(${className}DeleteRequest request) {
-        ${className}Entity entity = new ${className}Entity();
+    public BaseResp deleteSmUserById(SmUserDeleteRequest request) {
+        SmUserEntity entity = new SmUserEntity();
         BeanUtils.copyProperties(request, entity);
-        int result = this.${entityName}Dao.delete${className}ById(entity);
+        int result = this.smUserDao.deleteSmUserById(entity);
         if (result < 0) {
         throw new MyException("删除失败");
         }
@@ -55,31 +55,31 @@ public class ${className}Service {
     }
 
 
-    public ${className}OnlyResp find${className}ById(${className}FindByIdRequest request) {
-        ${className}Entity entity = new ${className}Entity();
+    public SmUserOnlyResp findSmUserById(SmUserFindByIdRequest request) {
+        SmUserEntity entity = new SmUserEntity();
         BeanUtils.copyProperties(request, entity);
-        ${className}Entity oEn = this.${entityName}Dao.find${className}ById(entity);
+        SmUserEntity oEn = this.smUserDao.findSmUserById(entity);
         if (oEn == null) {
         throw new MyException("不存在");
         }
-        ${className}OnlyResp vo = new ${className}OnlyResp();
+        SmUserOnlyResp vo = new SmUserOnlyResp();
         BeanUtils.copyProperties(oEn, vo);
         return vo;
     }
 
-    public ${className}QueryResp findAll(${className}QueryRequest request) {
-        ${className}Entity entity = new ${className}Entity();
+    public SmUserQueryResp findAll(SmUserQueryRequest request) {
+        SmUserEntity entity = new SmUserEntity();
         BeanUtils.copyProperties(request, entity);
 
         Page page = PageHelper.startPage(request.getPageNum(), request.getPageSize());
-        List<${className}Entity> list = this.${entityName}Dao.findAll(entity);
-        List<${className}Vo> records = list.stream().map(x -> {
-            ${className}Vo vo = new ${className}Vo();
+        List<SmUserEntity> list = this.smUserDao.findAll(entity);
+        List<SmUserVo> records = list.stream().map(x -> {
+            SmUserVo vo = new SmUserVo();
             BeanUtils.copyProperties(x, vo);
             return vo;
             }).collect(Collectors.toList());
 
-        ${className}QueryResp resp = new ${className}QueryResp.${className}QueryRespBuilder().records(records).build();
+        SmUserQueryResp resp = new SmUserQueryResp.SmUserQueryRespBuilder().records(records).build();
         resp.setTotalCount(page.getTotal());
         return resp;
     }

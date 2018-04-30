@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author yuechao 2018/4/29
@@ -19,41 +20,65 @@ import java.util.List;
 @AllArgsConstructor
 public class ColEntity {
     public static String ColumnsKey = "columns";
-    public static String colSQL = "SELECT COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE, COLUMN_COMMENT  FROM information_schema.COLUMNS WHERE table_name = 'sm_role' AND table_schema = 'portal' " +
-            "ORDER BY ORDINAL_POSITION";
+
 
     private String columnName;
+    private List<String> annotations;
     private Integer ordinalPosition;
     private String dataType;
     private String columnComment;
+    private String tableName;
+    private String columnKey;
 
     public static void main(String[] args) {
         new ColEntity().getColsByTableName("sm_role").forEach(System.out::println);
     }
 
 
+    public List<ColEntity> getKeysByTableName(String tableName) {
+        return getColsByTableName(tableName).stream().filter(x -> x.getColumnKey().equals("PRI")).collect(Collectors.toList());
+    }
+
+
     public List<ColEntity> getColsByTableName(String tableName) {
         List<ColEntity> list = new ArrayList<>();
-        try (Connection conn = getConn(); PreparedStatement ps = conn.prepareStatement(colSQL); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = DBUtil.getConn(); PreparedStatement ps = conn.prepareStatement(DBUtil.getColumnSQL(tableName)); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
+
                 String columnName = rs.getString("COLUMN_NAME");
                 int ordinalPosition = rs.getInt("ORDINAL_POSITION");
                 String dataType = rs.getString("DATA_TYPE");
                 String columnComment = rs.getString("COLUMN_COMMENT");
+                String tableNameDb = rs.getString("TABLE_NAME");
+                String columnKey = rs.getString("COLUMN_KEY");
                 ColEntity en = new ColEntityBuilder()
                         .columnName(mapUnderscoreToCamelCase(columnName))
                         .ordinalPosition(ordinalPosition)
                         .dataType(javaType(dataType))
                         .columnComment(columnComment)
+                        .annotations(annotations(dataType))
+                        .tableName(tableNameDb)
+                        .columnKey(columnKey)
                         .build();
                 list.add(en);
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         return list;
     }
+
+    private List<String> annotations(String dataType) {
+        List<String> annotations = new ArrayList<>();
+        if (dataType.equals("int") || dataType.equals("tinyint")) {
+            annotations.add("@NotEmpty(message = \"不能为空\")");
+        }
+        if (dataType.equals("char") || dataType.equals("varchar")) {
+            annotations.add("@NotNull(message = \"不能为空\")");
+        }
+        return annotations;
+     }
 
     private String javaType(String dataType) {
         if (dataType.equals("int")) {
@@ -61,6 +86,13 @@ public class ColEntity {
         }
         if (dataType.equals("char")) {
             return String.class.getSimpleName();
+        }
+        if (dataType.equals("varchar")) {
+            return String.class.getSimpleName();
+        }
+
+        if (dataType.equals("tinyint")) {
+            return Integer.class.getSimpleName();
         }
 
         throw new RuntimeException("javatype");
@@ -81,14 +113,5 @@ public class ColEntity {
         return sb.toString();
     }
 
-    public Connection getConn() {
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://cfssdoc.suwusoft.com:3306/portal", "doc", "Doc@1234");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return conn;
-    }
+
 }

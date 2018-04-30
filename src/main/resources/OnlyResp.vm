@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ${className}Entity {
+public class ${className}OnlyResp {
 
 #foreach ($i in $columns)
     @Comment("$i.columnComment")

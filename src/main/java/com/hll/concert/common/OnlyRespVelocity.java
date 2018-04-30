@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class EntityVelocity {
+public class OnlyRespVelocity {
     public void createEntityTemplate(String tableName, File enFile) {
 
         VelocityEngine ve = new VelocityEngine();
@@ -24,7 +24,7 @@ public class EntityVelocity {
 
         ve.init();
 
-        Template t = ve.getTemplate("Entity.vm");
+        Template t = ve.getTemplate("OnlyResp.vm");
         VelocityContext ctx = new VelocityContext();
         /**
          * 包名
@@ -50,6 +50,11 @@ public class EntityVelocity {
 //        System.out.println(sw.toString());
     }
 
+
+    public static void main(String[] args) {
+
+        new OnlyRespVelocity().createEntityTemplate("sm_user", null);
+    }
 
 
 }
