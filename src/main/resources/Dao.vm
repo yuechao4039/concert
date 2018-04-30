@@ -14,13 +14,13 @@ import java.util.List;
 @Mapper
 public interface ${className}Dao {
 
-int add${className}(${className}Entity entity);
-int update${className}(${className}Entity entity);
+    int add${className}(${className}Entity entity);
+    int update${className}(${className}Entity entity);
 
-int delete${className}ById(${className}Entity entity);
+    int delete${className}ById(${className}Entity entity);
 
-SmRoleEntity find${className}ById(SmRoleEntity entity);
+    SmRoleEntity find${className}ById(SmRoleEntity entity);
 
-List<SmRoleEntity> findAll(${className}Entity entity);
+    List<SmRoleEntity> findAll(${className}Entity entity);
 
 }

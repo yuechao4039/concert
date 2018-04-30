@@ -7,6 +7,8 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.StringWriter;
 
 public class EntityVelocity {
@@ -34,7 +36,12 @@ public class EntityVelocity {
 
         StringWriter sw = new StringWriter();
 
-        t.merge(ctx, sw);
+        try (FileWriter fw = new FileWriter("D://tmp//en.java") ) {
+            t.merge(ctx, fw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        t.merge(ctx, sw);
 
         System.out.println(sw.toString());
     }
