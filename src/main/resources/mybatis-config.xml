@@ -10,8 +10,6 @@
 
 
     <mappers>
-        <mapper resource="mapper/CityMapper.xml"/>
-        <mapper resource="mapper/HotelMapper.xml"/>
         <mapper resource="com/hll/concert/sm/role/SmRoleMapper.xml"/>
     </mappers>
 </configuration>
