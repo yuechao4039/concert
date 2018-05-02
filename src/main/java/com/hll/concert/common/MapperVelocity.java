@@ -34,23 +34,25 @@ public class MapperVelocity {
         ctx.put("entityName", new ClassNameEntity().getClassNameByTableName(tableName).substring(0, 1).toLowerCase() + new ClassNameEntity().getClassNameByTableName(tableName).substring(1));
 
         ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
-
+        ctx.put("tableName", tableName);
         ctx.put("insert", MapperUtil.insert(tableName));
         ctx.put("update", MapperUtil.update(tableName));
         ctx.put("delete", MapperUtil.delete(tableName));
+        ctx.put("resultMapList", MapperUtil.getResultMap(tableName));
+        ctx.put("columns", MapperUtil.getColumns(tableName));
 
-        try (FileWriter fw = new FileWriter(enFile) ) {
+ /*       try (FileWriter fw = new FileWriter(enFile) ) {
             t.merge(ctx, fw);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-//        StringWriter sw = new StringWriter();
-//        t.merge(ctx, sw);
-//        System.out.println(sw.toString());
+        }*/
+        StringWriter sw = new StringWriter();
+        t.merge(ctx, sw);
+        System.out.println(sw.toString());
     }
 
     public static void main(String[] args) {
-        new MapperVelocity().createEntityTemplate("sm_user", null);
+        new MapperVelocity().createEntityTemplate("sm_role", null);
     }
 
 
