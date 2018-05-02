@@ -20,36 +20,28 @@
     </delete>
 
     <resultMap id="${entityName}Map" type="com.hll.concert.sm.role.${className}Entity">
+
         <id column="id" property="id"></id>
-        <result column="code" property="code"></result>
-        <result column="name" property="name"></result>
-        <result column="role_level" property="roleLevel"></result>
-        <result column="type" property="type"></result>
+        #foreach($c in $resultMapList)
+        <result column=${c.column} property=${c.property}></result>
+        #end
     </resultMap>
 
     <select id="find${className}ById" resultMap="${entityName}Map">
-        select id, code, name, role_level, type from sm_role where id = #{id}
+        select $columns from ${tableName} where id = #{id}
     </select>
 
     <select id="findAll" resultMap="${entityName}Map">
-        select id, code, name, role_level, type from sm_role
+        select $columns from ${tableName}
         <where>
             <if test="null neq id and '' != id">
                 and id = #{id}
             </if>
-
-            <if test="null neq code and '' != code">
-                and code = #{code}
+            #foreach($c in $resultMapList)
+            <if test="null neq ${c.property} and '' != ${c.property}">
+                and code = #{${c.property}}
             </if>
-
-            <if test="null neq name and '' != name">
-                and name = #{name}
-            </if>
-
-            <if test="null neq type and '' != type">
-                and type = #{type}
-            </if>
-
+            #end
         </where>
     </select>
 
