@@ -22,9 +22,9 @@
     <resultMap id="${entityName}Map" type="com.hll.concert.sm.role.${className}Entity">
 
         <id column="id" property="id"></id>
-        #foreach($c in $resultMapList)
-        <result column=${c.column} property=${c.property}></result>
+        #foreach($c in $resultMapList)<result column=${c.column} property=${c.property}></result>
         #end
+
     </resultMap>
 
     <select id="find${className}ById" resultMap="${entityName}Map">
@@ -37,11 +37,10 @@
             <if test="null neq id and '' != id">
                 and id = #{id}
             </if>
-            #foreach($c in $resultMapList)
-            <if test="null neq ${c.property} and '' != ${c.property}">
+            #foreach($c in $resultMapList)<if test="null neq ${c.property} and '' != ${c.property}">
                 and code = #{${c.property}}
-            </if>
-            #end
+            </if>#end
+
         </where>
     </select>
 
