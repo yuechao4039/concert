@@ -41,14 +41,14 @@ public class MapperVelocity {
         ctx.put("resultMapList", MapperUtil.getResultMap(tableName));
         ctx.put("columns", MapperUtil.getColumns(tableName));
 
- /*       try (FileWriter fw = new FileWriter(enFile) ) {
+        try (FileWriter fw = new FileWriter(enFile) ) {
             t.merge(ctx, fw);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-        StringWriter sw = new StringWriter();
-        t.merge(ctx, sw);
-        System.out.println(sw.toString());
+        }
+//        StringWriter sw = new StringWriter();
+//        t.merge(ctx, sw);
+//        System.out.println(sw.toString());
     }
 
     public static void main(String[] args) {
