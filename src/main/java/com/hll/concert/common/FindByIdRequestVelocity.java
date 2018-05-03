@@ -38,7 +38,11 @@ public class FindByIdRequestVelocity {
          * 属性
          */
         ctx.put(ColEntity.ColumnsKey, new ColEntity().getKeysByTableName(tableName));
-
+        /**
+         * 引入java.sql.Date;
+         */
+        ctx.put("hasDateType", new ColEntity().hasDateType(tableName));
+        
         StringWriter sw = new StringWriter();
 
         try (FileWriter fw = new FileWriter(enFile) ) {

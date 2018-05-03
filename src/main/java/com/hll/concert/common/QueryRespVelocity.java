@@ -34,6 +34,10 @@ public class QueryRespVelocity {
          * 类名
          */
         ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
+        /**
+         * 引入java.sql.Date;
+         */
+        ctx.put("hasDateType", new ColEntity().hasDateType(tableName));
 
         StringWriter sw = new StringWriter();
 

@@ -38,8 +38,10 @@ public class DeleteRequestVelocity {
          * 属性
          */
         ctx.put(ColEntity.ColumnsKey, new ColEntity().getKeysByTableName(tableName));
-
-
+        /**
+         * 引入java.sql.Date;
+         */
+        ctx.put("hasDateType", new ColEntity().hasDateType(tableName));
 
         try (FileWriter fw = new FileWriter(enFile) ) {
             t.merge(ctx, fw);

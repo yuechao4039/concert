@@ -42,6 +42,18 @@ public class ColEntity {
         return getColsByTableName(tableName).stream().filter(x -> x.getColumnKey().equals("PRI")).collect(Collectors.toList());
     }
 
+    public Boolean hasDateType(String tableName){
+
+        try(Connection conn = DBUtil.getConn(); PreparedStatement ps = conn.prepareStatement(DBUtil.getColumnSQL(tableName));ResultSet rs = ps.executeQuery()){
+           while(rs.next()){
+                if("date".equalsIgnoreCase(rs.getString("DATA_TYPE")))
+                    return true;
+           }
+        }catch (Exception e){
+
+        }
+        return false;
+    }
 
     public List<ColEntity> getColsByTableName(String tableName) {
         List<ColEntity> list = new ArrayList<>();
@@ -97,6 +109,12 @@ public class ColEntity {
 
         if (dataType.equals("tinyint")) {
             return Integer.class.getSimpleName();
+        }
+        if(dataType.equals("date")){
+            return Date.class.getSimpleName();
+        }
+        if (dataType.equals("timestamp")){
+            return Timestamp.class.getSimpleName();
         }
 
         throw new RuntimeException("javatype");

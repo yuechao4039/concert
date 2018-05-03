@@ -10,6 +10,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 
 public class DaoVelocity {
     public static void createEntityTemplate(String tableName, File file) {
@@ -27,7 +28,7 @@ public class DaoVelocity {
         Template t = ve.getTemplate("Dao.vm");
 
         String packageName = new PackageEntity().getQualifiedName(tableName);
-
+        System.out.println(packageName);
         VelocityContext ctx = new VelocityContext();
         ctx.put("packageName", packageName);
         ctx.put("className", getTableName(tableName));
@@ -51,6 +52,8 @@ public class DaoVelocity {
         }
         return sb.toString();
     }
-
+    public static void main(String[] args) {
+        new DaoVelocity().createEntityTemplate("contract", null);
+    }
 
 }

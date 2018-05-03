@@ -38,6 +38,10 @@ public class VoVelocity {
          * 属性
          */
         ctx.put(ColEntity.ColumnsKey, new ColEntity().getColsByTableName(tableName));
+        /**
+         * 引入java.sql.Date;
+         */
+        ctx.put("hasDateType", new ColEntity().hasDateType(tableName));
 
         StringWriter sw = new StringWriter();
 

@@ -35,9 +35,10 @@ public class PackageEntity {
     }
 
     public static void main(String[] args) {
-        new PackageEntity().generatePackageQualifiedName("sm_role").forEach(x -> {
-            System.out.println(x);
-        });
+        System.out.println(new PackageEntity().getQualifiedName("contract"));
+//        new PackageEntity().generatePackageQualifiedName("contract").forEach(x -> {
+//            System.out.println(x);
+//        });
     }
 
 }
