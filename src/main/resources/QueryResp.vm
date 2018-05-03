@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+#if($hasDateType)import java.sql.Date;
+#end
 import java.util.List;
 
 /**

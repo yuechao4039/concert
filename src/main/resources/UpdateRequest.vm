@@ -5,7 +5,8 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
+#if($hasDateType)import java.sql.Date;
+#end
 /**
  * @author yuechao 2018/4/29
  */
