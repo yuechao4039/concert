@@ -12,7 +12,7 @@ public class Launcher {
     public static void main(String[] args) {
 
         DBUtil.getAllTables().stream().filter(x ->
-            x.getTableName().equals("sm_user")
+            x.getTableName().equals("swagger")
         ).forEach(x -> {
             String tableName = x.getTableName();
             /**
