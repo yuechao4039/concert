@@ -110,12 +110,6 @@ public class ColEntity {
         if (dataType.equals("tinyint")) {
             return Integer.class.getSimpleName();
         }
-        if(dataType.equals("date")){
-            return Date.class.getSimpleName();
-        }
-        if (dataType.equals("timestamp")){
-            return Timestamp.class.getSimpleName();
-        }
 
         throw new RuntimeException("javatype");
     }

@@ -12,7 +12,11 @@ public class Launcher {
     public static void main(String[] args) {
 
         DBUtil.getAllTables().stream().filter(x ->
+<<<<<<< HEAD
             x.getTableName().equals("contract")
+=======
+            x.getTableName().equals("swagger")
+>>>>>>> origin/master
         ).forEach(x -> {
             String tableName = x.getTableName();
             /**
