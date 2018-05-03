@@ -22,7 +22,7 @@
     <resultMap id="${entityName}Map" type="com.hll.concert.sm.role.${className}Entity">
 
         <id column="id" property="id"></id>
-        #foreach($c in $resultMapList)<result column=${c.column} property=${c.property}></result>
+        #foreach($c in $resultMapList)<result column="${c.column}" property="${c.property}"></result>
         #end
 
     </resultMap>
