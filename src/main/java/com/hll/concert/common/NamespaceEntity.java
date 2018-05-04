@@ -14,11 +14,11 @@ public class NamespaceEntity {
             if (i == arr.length - 1) {
                 sb.append(arr[i]);
 
-                daoName.append(arr[i].substring(0, 1).toUpperCase()).append(arr[i].substring(1)).append("Dao");
+                daoName.append(Character.toUpperCase(arr[i].charAt(0))).append(arr[i].substring(1)).append("Dao");
             } else {
                 sb.append(arr[i]).append(".");
 
-                daoName.append(arr[i].substring(0, 1).toUpperCase()).append(arr[i].substring(1));
+                daoName.append(Character.toUpperCase(arr[i].charAt(0))).append(arr[i].substring(1));
             }
         }
 

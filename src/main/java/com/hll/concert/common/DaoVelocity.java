@@ -48,7 +48,7 @@ public class DaoVelocity {
         StringBuilder sb = new StringBuilder();
 
         for (String str : tbls) {
-            sb.append(str.substring(0, 1).toUpperCase()).append(str.substring(1));
+            sb.append(Character.toUpperCase(str.charAt(0))).append(str.substring(1));
         }
         return sb.toString();
     }

@@ -45,7 +45,7 @@ public class FileEntity {
         StringBuilder sb = new StringBuilder();
         String[] arr = tableName.split(Entity.underscore);
         for (int i = 0; i < arr.length; i++) {
-            sb.append(arr[i].substring(0, 1).toUpperCase()).append(arr[i].substring(1));
+            sb.append(Character.toUpperCase(arr[i].charAt(0))).append(arr[i].substring(1));
         }
 
         List<String> list = vms.stream().map(x ->

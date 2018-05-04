@@ -31,7 +31,7 @@ public class MapperVelocity {
 
         ctx.put(NamespaceEntity.NAMESPACE, new NamespaceEntity().namespace(tableName));
 
-        ctx.put("entityName", new ClassNameEntity().getClassNameByTableName(tableName).substring(0, 1).toLowerCase() + new ClassNameEntity().getClassNameByTableName(tableName).substring(1));
+        ctx.put("entityName", Character.toLowerCase(new ClassNameEntity().getClassNameByTableName(tableName).charAt(0)) + new ClassNameEntity().getClassNameByTableName(tableName).substring(1));
 
         ctx.put(ClassNameEntity.CLASS_NAME, new ClassNameEntity().getClassNameByTableName(tableName));
         ctx.put("tableName", tableName);

@@ -122,7 +122,7 @@ public class ColEntity {
 
         } else {
             for (int i = 1; i < arr.length; i++) {
-                sb.append(arr[i].substring(0, 1).toUpperCase()).append(arr[i].substring(1));
+                sb.append(Character.toUpperCase(arr[i].charAt(0))).append(arr[i].substring(1));
             }
         }
 

@@ -122,8 +122,7 @@ public class MapperUtil {
         String[] arr = c.split("_");
         for (int i = 0; i < arr.length; i++) {
             if(i>0){
-                sb.append(arr[i].substring(0, 1)
-                        .toUpperCase())
+                sb.append(Character.toUpperCase(arr[i].charAt(0)))
                         .append(arr[i].substring(1));
             }else {
                 sb.append(arr[i]);
