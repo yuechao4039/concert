@@ -24,7 +24,7 @@ public class AddRequestVelocity {
 
         ve.init();
 
-        Template t = ve.getTemplate("AddRequest.vm");
+        Template template = ve.getTemplate("AddRequest.vm");
         VelocityContext ctx = new VelocityContext();
         /**
          * 包名
@@ -46,7 +46,7 @@ public class AddRequestVelocity {
         StringWriter sw = new StringWriter();
 
         try (FileWriter fw = new FileWriter(enFile) ) {
-            t.merge(ctx, fw);
+            template.merge(ctx, fw);
         } catch (IOException e) {
             e.printStackTrace();
         }

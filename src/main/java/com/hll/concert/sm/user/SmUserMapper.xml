@@ -6,7 +6,10 @@
 <mapper namespace="com.hll.concert.sm.user.SmUserDao">
 
     <insert id="addSmUser" keyProperty="id" useGeneratedKeys="true" >
-        insert into sm_user (organ_id, organ_code, organ_name, code, name, password, salt, phone, mail, level, verify_code, error_time) values (#{id}, #{organId}, #{organCode}, #{organName}, #{code}, #{name}, #{password}, #{salt}, #{phone}, #{mail}, #{level}, #{verifyCode}, #{errorTime})
+        insert into sm_user (organ_id, organ_code, organ_name, code,
+        name, password, salt, phone, mail, level, verify_code, error_time)
+         values (#{organId}, #{organCode}, #{organName}, #{code},
+         #{name}, #{password}, #{salt}, #{phone}, #{mail}, #{level}, #{verifyCode}, #{errorTime})
     </insert>
 
 
@@ -19,12 +22,10 @@
         delete from sm_user where id = #{id})
     </delete>
 
-    <resultMap id="smUserMap" type="com.hll.concert.sm.role.SmUserEntity">
+    <resultMap id="smUserMap" type="com.hll.concert.sm.user.SmUserEntity">
         <id column="id" property="id"></id>
         <result column="code" property="code"></result>
         <result column="name" property="name"></result>
-        <result column="role_level" property="roleLevel"></result>
-        <result column="type" property="type"></result>
     </resultMap>
 
     <select id="findSmUserById" resultMap="smUserMap">

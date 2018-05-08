@@ -11,5 +11,7 @@
 
     <mappers>
         <mapper resource="com/hll/concert/sm/role/SmRoleMapper.xml"/>
+
+        <mapper resource="com/hll/concert/sm/user/SmUserMapper.xml"/>
     </mappers>
 </configuration>
